@@ -1,11 +1,12 @@
 #!/bin/bash
-# Starts up the Phabricator stack within the container.
+# Starts up Jenkins within the container.
 
 # Stop on error
 set -e
 
-DATA_DIR=/var/lib/jenkins
+LIB_DIR=/var/lib/jenkins
 LOG_DIR=/var/log
+CACHE_DIR=/var/cache/jenkins/war
 
 if [[ -e /first_run ]]; then
   source /scripts/first_run.sh
@@ -16,10 +17,15 @@ fi
 pre_start_action
 post_start_action
 
-chown jenkins:jenkins $DATA_DIR
-chown jenkins:jenkins "$LOG_DIR/jenkins"
+chown -R jenkins:jenkins $LIB_DIR
+chown -R jenkins:jenkins $CACHE_DIR
+chown -R jenkins:jenkins "$LOG_DIR/jenkins"
 
-service sshd start
+echo "Starting Syslog-ng..."
+syslog-ng --no-caps
+
+echo "Starting SSHd..."
+/usr/sbin/sshd
 
 echo "Starting Jenkins..."
-service jenkins start
+/etc/init.d/jenkins start

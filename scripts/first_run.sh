@@ -1,5 +1,6 @@
 pre_start_action() {
-  mkdir -p $DATA_DIR
+  mkdir -p $LIB_DIR
+  mkdir -p $CACHE_DIR
   mkdir -p "$LOG_DIR/jenkins"
 }
 
