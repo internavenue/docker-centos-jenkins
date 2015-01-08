@@ -3,7 +3,7 @@ DOCKER_USER=internavenue
 DOCKER_REPO_NAME=centos-jenkins
 
 # Change this to suit your needs.
-CONTAINER_NAME:=lon-dev-ci
+CONTAINER_NAME:=lon-dev-jenkins1
 LOG_DIR:=/srv/docker/lon-dev-jenkins1/log
 LIB_DIR:=/srv/docker/lon-dev-jenkins1/lib
 CACHE_DIR:=/srv/docker/lon-dev-jenkins1/cache
@@ -16,9 +16,9 @@ ALL:=$(shell docker ps -a | grep "$(CONTAINER_NAME) " | cut -f 1 -d ' ')
 DOCKER_RUN_COMMON=--name="$(CONTAINER_NAME)" \
         --privileged \
 	-P \
-	-v $(LOG_DIR):/var/log \
-	-v $(DATA_DIR):/var/lib/jenkins \
+	-v $(LIB_DIR):/var/lib/jenkins \
 	-v $(CACHE_DIR):/var/cache/jenkins/war \
+	-v $(LOG_DIR):/var/log \
 	$(DOCKER_USER)/$(DOCKER_REPO_NAME)
 
 all: build
