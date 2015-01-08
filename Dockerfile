@@ -6,7 +6,7 @@ RUN wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenki
 RUN rpm --import http://pkg.jenkins-ci.org/redhat/jenkins-ci.org.key
 
 RUN yum -y install \
-  java-1.7.0-openjdk-headless \
+  java-1.7.0-openjdk \
   jenkins
 
 # Clean up YUM when done.
